@@ -1,0 +1,28 @@
+{
+    "demoApp": {
+        "subcategory" : {
+            "home": {
+                "title": "Subcategories",
+                "createLabel": "Create a new Subcategory",
+                "createOrEditLabel": "Create or edit a Subcategory",
+                "search": "Search for Subcategory"
+            },
+            "created": "A new Subcategory is created with identifier {{ param }}",
+            "updated": "A Subcategory is updated with identifier {{ param }}",
+            "deleted": "A Subcategory is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Subcategory {{ id }}?"
+            },
+            "detail": {
+                "title": "Subcategory"
+            },
+            "name": "Name",
+            "externalId": "External Id",
+            "enabled": "Enabled",
+            "subcategoryLang": "Subcategory Lang",
+            "action": "Action",
+            "request": "Request",
+            "category": "Category"
+        }
+    }
+}

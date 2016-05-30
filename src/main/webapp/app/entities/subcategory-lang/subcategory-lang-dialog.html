@@ -1,0 +1,57 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="mySubcategoryLangLabel" translate="demoApp.subcategoryLang.home.createOrEditLabel">Create or edit a Subcategory Lang</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.subcategoryLang.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.subcategoryLang.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="demoApp.subcategoryLang.languageCode" for="field_languageCode">Language Code</label>
+            <select class="form-control" name="languageCode" ng-model="vm.subcategoryLang.languageCode" id="field_languageCode" required>
+                <option value="EN" translate="demoApp.Language.EN">EN</option>
+                <option value="ES" translate="demoApp.Language.ES">ES</option>
+            </select>
+            <div ng-show="editForm.languageCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.languageCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="demoApp.subcategoryLang.value" for="field_value">Value</label>
+            <input type="text" class="form-control" name="value" id="field_value"
+                    ng-model="vm.subcategoryLang.value"
+                    required />
+            <div ng-show="editForm.value.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.value.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="demoApp.subcategoryLang.subcategory" for="field_subcategory">Subcategory</label>
+            <select class="form-control" id="field_subcategory" name="subcategory" ng-model="vm.subcategoryLang.subcategory" ng-options="subcategory as subcategory.name for subcategory in vm.subcategories track by subcategory.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

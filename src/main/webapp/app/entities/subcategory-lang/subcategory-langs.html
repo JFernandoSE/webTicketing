@@ -1,0 +1,66 @@
+<div>
+    <h2 translate="demoApp.subcategoryLang.home.title">Subcategory Langs</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="subcategory-lang.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  translate="demoApp.subcategoryLang.home.createLabel">
+                        Create new Subcategory Lang
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="languageCode"><span translate="demoApp.subcategoryLang.languageCode">Language Code</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="value"><span translate="demoApp.subcategoryLang.value">Value</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="subcategory.name"><span translate="demoApp.subcategoryLang.subcategory">Subcategory</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="subcategoryLang in vm.subcategoryLangs track by subcategoryLang.id">
+                    <td><a ui-sref="subcategory-lang-detail({id:subcategoryLang.id})">{{subcategoryLang.id}}</a></td>
+                    <td translate="{{'demoApp.Language.' + subcategoryLang.languageCode}}">{{subcategoryLang.languageCode}}</td>
+                    <td>{{subcategoryLang.value}}</td>
+                    <td>
+                        <a ui-sref="subcategory-detail({id:subcategoryLang.subcategory.id})">{{subcategoryLang.subcategory.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="subcategory-lang-detail({id:subcategoryLang.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="subcategory-lang.edit({id:subcategoryLang.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="subcategory-lang.delete({id:subcategoryLang.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

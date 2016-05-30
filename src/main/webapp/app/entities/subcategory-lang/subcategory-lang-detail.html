@@ -1,0 +1,26 @@
+
+<div>
+    <h2><span translate="demoApp.subcategoryLang.detail.title">Subcategory Lang</span> {{vm.subcategoryLang.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="demoApp.subcategoryLang.languageCode">Language Code</span></dt>
+        <dd>
+            <span translate="{{'demoApp.Language.' + vm.subcategoryLang.languageCode}}">{{vm.subcategoryLang.languageCode}}</span>
+        </dd>
+        <dt><span translate="demoApp.subcategoryLang.value">Value</span></dt>
+        <dd>
+            <span>{{vm.subcategoryLang.value}}</span>
+        </dd>
+        <dt><span translate="demoApp.subcategoryLang.subcategory">Subcategory</span></dt>
+        <dd>
+            <a ui-sref="subcategory-detail({id:vm.subcategoryLang.subcategory.id})">{{vm.subcategoryLang.subcategory.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

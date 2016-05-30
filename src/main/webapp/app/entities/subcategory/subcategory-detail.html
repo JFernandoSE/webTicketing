@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span translate="demoApp.subcategory.detail.title">Subcategory</span> {{vm.subcategory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="demoApp.subcategory.name">Name</span></dt>
+        <dd>
+            <span>{{vm.subcategory.name}}</span>
+        </dd>
+        <dt><span translate="demoApp.subcategory.externalId">External Id</span></dt>
+        <dd>
+            <span>{{vm.subcategory.externalId}}</span>
+        </dd>
+        <dt><span translate="demoApp.subcategory.enabled">Enabled</span></dt>
+        <dd>
+            <span>{{vm.subcategory.enabled}}</span>
+        </dd>
+        <dt><span translate="demoApp.subcategory.action">Action</span></dt>
+        <dd>
+            <span ng-repeat="action in vm.subcategory.actions">
+                <a ui-sref="action-detail({id: {{action.id}}})">{{action.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="demoApp.subcategory.category">Category</span></dt>
+        <dd>
+            <a ui-sref="category-detail({id:vm.subcategory.category.id})">{{vm.subcategory.category.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

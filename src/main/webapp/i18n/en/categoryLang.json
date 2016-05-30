@@ -1,0 +1,24 @@
+{
+    "demoApp": {
+        "categoryLang" : {
+            "home": {
+                "title": "Category Langs",
+                "createLabel": "Create a new Category Lang",
+                "createOrEditLabel": "Create or edit a Category Lang",
+                "search": "Search for Category Lang"
+            },
+            "created": "A new Category Lang is created with identifier {{ param }}",
+            "updated": "A Category Lang is updated with identifier {{ param }}",
+            "deleted": "A Category Lang is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Category Lang {{ id }}?"
+            },
+            "detail": {
+                "title": "Category Lang"
+            },
+            "languageCode": "Language Code",
+            "value": "Value",
+            "category": "Category"
+        }
+    }
+}

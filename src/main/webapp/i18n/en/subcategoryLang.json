@@ -1,0 +1,24 @@
+{
+    "demoApp": {
+        "subcategoryLang" : {
+            "home": {
+                "title": "Subcategory Langs",
+                "createLabel": "Create a new Subcategory Lang",
+                "createOrEditLabel": "Create or edit a Subcategory Lang",
+                "search": "Search for Subcategory Lang"
+            },
+            "created": "A new Subcategory Lang is created with identifier {{ param }}",
+            "updated": "A Subcategory Lang is updated with identifier {{ param }}",
+            "deleted": "A Subcategory Lang is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Subcategory Lang {{ id }}?"
+            },
+            "detail": {
+                "title": "Subcategory Lang"
+            },
+            "languageCode": "Language Code",
+            "value": "Value",
+            "subcategory": "Subcategory"
+        }
+    }
+}

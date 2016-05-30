@@ -1,0 +1,55 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "categoryLang",
+      "otherEntityName": "categoryLang",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "category"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipName": "subcategory",
+      "otherEntityName": "subcategory",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "category"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipName": "request",
+      "otherEntityName": "request",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "category"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "externalId",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "enabled",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160530222008",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "serviceClass"
+}

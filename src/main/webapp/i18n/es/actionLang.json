@@ -1,0 +1,24 @@
+{
+    "demoApp": {
+        "actionLang" : {
+            "home": {
+                "title": "Action Langs",
+                "createLabel": "Crear nuevo Action Lang",
+                "createOrEditLabel": "Crear o editar Action Lang",
+                "search": "Search for Action Lang"
+            },
+            "created": "Un nuevo Action Lang ha sido creado con el identificador {{ param }}",
+            "updated": "Un Action Lang ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Action Lang ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Action Lang {{ id }}?"
+            },
+            "detail": {
+                "title": "Action Lang"
+            },
+            "languageCode": "Language Code",
+            "value": "Value",
+            "action": "Action"
+        }
+    }
+}

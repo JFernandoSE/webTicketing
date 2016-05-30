@@ -1,0 +1,76 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRequestLabel" translate="demoApp.request.home.createOrEditLabel">Create or edit a Request</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.request.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.request.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="demoApp.request.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.request.description"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="demoApp.request.dateRequest" for="field_dateRequest">Date Request</label>
+                <div class="input-group">
+                    <input id="field_dateRequest" type="text" class="form-control" name="dateRequest" uib-datepicker-popup="{{dateformat}}" ng-model="vm.request.dateRequest" is-open="vm.datePickerOpenStatus.dateRequest"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateRequest')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dateRequest.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dateRequest.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="demoApp.request.category" for="field_category">Category</label>
+            <select class="form-control" id="field_category" name="category" ng-model="vm.request.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="demoApp.request.subcategory" for="field_subcategory">Subcategory</label>
+            <select class="form-control" id="field_subcategory" name="subcategory" ng-model="vm.request.subcategory" ng-options="subcategory as subcategory.name for subcategory in vm.subcategories track by subcategory.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="demoApp.request.action" for="field_action">Action</label>
+            <select class="form-control" id="field_action" name="action" ng-model="vm.request.action" ng-options="action as action.name for action in vm.actions track by action.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
