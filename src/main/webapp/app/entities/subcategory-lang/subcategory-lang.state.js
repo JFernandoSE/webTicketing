@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/subcategory-lang?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'demoApp.subcategoryLang.home.title'
             },
             views: {

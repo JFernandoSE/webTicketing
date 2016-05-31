@@ -14,41 +14,8 @@
                     ng-model="vm.request.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="demoApp.request.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="vm.request.description"
-                    required ng-maxlength="50" />
-            <div ng-show="editForm.description.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
-                    This field cannot be longer than 50 characters.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="demoApp.request.dateRequest" for="field_dateRequest">Date Request</label>
-                <div class="input-group">
-                    <input id="field_dateRequest" type="text" class="form-control" name="dateRequest" uib-datepicker-popup="{{dateformat}}" ng-model="vm.request.dateRequest" is-open="vm.datePickerOpenStatus.dateRequest"
-                    required/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateRequest')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-            <div ng-show="editForm.dateRequest.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.dateRequest.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label translate="demoApp.request.category" for="field_category">Category</label>
-            <select class="form-control" id="field_category" name="category" ng-model="vm.request.category" ng-options="category as category.name for category in vm.categories track by category.id">
+            <select class="form-control" id="field_category" name="category" ng-model="vm.request.category" ng-change="vm.change()" ng-options="category as category.name for category in vm.categories track by category.id">
                 <option value=""></option>
             </select>
         </div>
@@ -63,6 +30,22 @@
             <select class="form-control" id="field_action" name="action" ng-model="vm.request.action" ng-options="action as action.name for action in vm.actions track by action.id">
                 <option value=""></option>
             </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="demoApp.request.description" for="field_description">Description</label>
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.request.description"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

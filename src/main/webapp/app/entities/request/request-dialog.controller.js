@@ -15,9 +15,11 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.categories = Category.query();
-        vm.subcategories = Subcategory.query();
-        vm.actions = Action.query();
+        vm.change = change;
+        vm.categories = Category.enabled();
+        //vm.subcategories = Subcategory.enabled();
+        vm.actions = Action.enabled();
+        vm.request.dateRequest= new Date();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -34,6 +36,19 @@
             } else {
                 Request.save(vm.request, onSaveSuccess, onSaveError);
             }
+        }
+
+        function change () {
+          /*m.subcategories = Subcategory.enabled(
+                 {category:vm.request.category.id}*/
+
+          vm.subcategories = Subcategory.enabled(
+	           {category:vm.request.category.id},
+	            function (value, responseHeaders) {
+	            },
+	            function (httpResponse) {
+	            }
+	        );
         }
 
         function onSaveSuccess (result) {

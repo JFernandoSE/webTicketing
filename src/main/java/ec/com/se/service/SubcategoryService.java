@@ -1,5 +1,6 @@
 package ec.com.se.service;
 
+import ec.com.se.domain.Category;
 import ec.com.se.domain.Subcategory;
 import ec.com.se.repository.SubcategoryRepository;
 import org.slf4j.Logger;
@@ -20,13 +21,13 @@ import java.util.List;
 public class SubcategoryService {
 
     private final Logger log = LoggerFactory.getLogger(SubcategoryService.class);
-    
+
     @Inject
     private SubcategoryRepository subcategoryRepository;
-    
+
     /**
      * Save a subcategory.
-     * 
+     *
      * @param subcategory the entity to save
      * @return the persisted entity
      */
@@ -38,14 +39,22 @@ public class SubcategoryService {
 
     /**
      *  Get all the subcategories.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Subcategory> findAll(Pageable pageable) {
         log.debug("Request to get all Subcategories");
-        Page<Subcategory> result = subcategoryRepository.findAll(pageable); 
+        Page<Subcategory> result = subcategoryRepository.findAll(pageable);
+        return result;
+    }
+
+    /*  Return Subcategories list enabled */
+    @Transactional(readOnly = true)
+    public Page<Subcategory> findAllEnabled(Category category, Boolean enabled, Pageable pageable) {
+        log.debug("Request to get all enabled Category");
+        Page<Subcategory> result = subcategoryRepository.findByCategoryAndEnabled(category, enabled, pageable);
         return result;
     }
 
@@ -55,7 +64,7 @@ public class SubcategoryService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Subcategory findOne(Long id) {
         log.debug("Request to get Subcategory : {}", id);
         Subcategory subcategory = subcategoryRepository.findOneWithEagerRelationships(id);
@@ -64,7 +73,7 @@ public class SubcategoryService {
 
     /**
      *  Delete the  subcategory by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

@@ -30,10 +30,10 @@ import java.util.Optional;
 public class CategoryResource {
 
     private final Logger log = LoggerFactory.getLogger(CategoryResource.class);
-        
+
     @Inject
     private CategoryService categoryService;
-    
+
     /**
      * POST  /categories : Create a new category.
      *
@@ -94,8 +94,21 @@ public class CategoryResource {
     public ResponseEntity<List<Category>> getAllCategories(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Categories");
-        Page<Category> page = categoryService.findAll(pageable); 
+        Page<Category> page = categoryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categories");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List Categories Enabled */
+    @RequestMapping(value = "/categories/enabled",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Category>> getAllCategoriesEnabled(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Categories");
+        Page<Category> page = categoryService.findAllEnabled(true, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categories-enabled");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

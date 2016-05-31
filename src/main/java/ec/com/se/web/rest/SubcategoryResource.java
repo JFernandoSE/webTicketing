@@ -1,6 +1,7 @@
 package ec.com.se.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import ec.com.se.domain.Category;
 import ec.com.se.domain.Subcategory;
 import ec.com.se.service.SubcategoryService;
 import ec.com.se.web.rest.util.HeaderUtil;
@@ -30,10 +31,10 @@ import java.util.Optional;
 public class SubcategoryResource {
 
     private final Logger log = LoggerFactory.getLogger(SubcategoryResource.class);
-        
+
     @Inject
     private SubcategoryService subcategoryService;
-    
+
     /**
      * POST  /subcategories : Create a new subcategory.
      *
@@ -94,9 +95,23 @@ public class SubcategoryResource {
     public ResponseEntity<List<Subcategory>> getAllSubcategories(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Subcategories");
-        Page<Subcategory> page = subcategoryService.findAll(pageable); 
+        Page<Subcategory> page = subcategoryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subcategories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List SUb-Categories Enabled */
+    @RequestMapping(value = "/subcategories/enabled",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Subcategory>> getAllSubcategoriesEnabled(@RequestParam(value = "category", required = true) String category , Pageable pageable)
+        throws URISyntaxException {
+          Category cat= new Category();
+          cat.setId(Long.valueOf(category));
+          Page<Subcategory> page = subcategoryService.findAllEnabled(cat, true, pageable);
+          HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subcategories-enabled");
+          return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);          
     }
 
     /**

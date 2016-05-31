@@ -20,13 +20,13 @@ import java.util.List;
 public class CategoryService {
 
     private final Logger log = LoggerFactory.getLogger(CategoryService.class);
-    
+
     @Inject
     private CategoryRepository categoryRepository;
-    
+
     /**
      * Save a category.
-     * 
+     *
      * @param category the entity to save
      * @return the persisted entity
      */
@@ -38,14 +38,22 @@ public class CategoryService {
 
     /**
      *  Get all the categories.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Category> findAll(Pageable pageable) {
         log.debug("Request to get all Categories");
-        Page<Category> result = categoryRepository.findAll(pageable); 
+        Page<Category> result = categoryRepository.findAll(pageable);
+        return result;
+    }
+
+    /*  Return Category list enabled */
+    @Transactional(readOnly = true)
+    public Page<Category> findAllEnabled(Boolean enabled, Pageable pageable) {
+        log.debug("Request to get all enabled Category");
+        Page<Category> result = categoryRepository.findByEnabled(enabled, pageable);
         return result;
     }
 
@@ -55,7 +63,7 @@ public class CategoryService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Category findOne(Long id) {
         log.debug("Request to get Category : {}", id);
         Category category = categoryRepository.findOne(id);
@@ -64,7 +72,7 @@ public class CategoryService {
 
     /**
      *  Delete the  category by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

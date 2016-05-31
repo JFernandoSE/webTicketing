@@ -10,7 +10,15 @@
         var resourceUrl =  'api/actions/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
+            'enabled': {
+                  method:'GET',
+                  url: '/api/actions/enabled',
+                  isArray: true
+            },
+            'query': {
+                  method: 'GET',
+                  isArray: true
+            },
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

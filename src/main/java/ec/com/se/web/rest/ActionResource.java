@@ -30,10 +30,10 @@ import java.util.Optional;
 public class ActionResource {
 
     private final Logger log = LoggerFactory.getLogger(ActionResource.class);
-        
+
     @Inject
     private ActionService actionService;
-    
+
     /**
      * POST  /actions : Create a new action.
      *
@@ -94,8 +94,21 @@ public class ActionResource {
     public ResponseEntity<List<Action>> getAllActions(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Actions");
-        Page<Action> page = actionService.findAll(pageable); 
+        Page<Action> page = actionService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/actions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List Actions Enabled */
+    @RequestMapping(value = "/actions/enabled",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Action>> getAllActionsEnabled(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Actions");
+        Page<Action> page = actionService.findAllEnabled(true, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/actions-enabled");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

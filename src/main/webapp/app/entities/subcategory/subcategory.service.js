@@ -10,6 +10,11 @@
         var resourceUrl =  'api/subcategories/:id';
 
         return $resource(resourceUrl, {}, {
+            'enabled': {
+                  method:'GET',
+                  url: '/api/subcategories/enabled',
+                  isArray: true
+            },
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

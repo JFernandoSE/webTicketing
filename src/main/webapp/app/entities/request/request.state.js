@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/request?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'demoApp.request.home.title'
             },
             views: {
