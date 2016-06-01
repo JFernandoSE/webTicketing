@@ -13,4 +13,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ActionRepository extends JpaRepository<Action,Long> {
   Page<Action> findByEnabled(Boolean enabled, Pageable pag);
+  
 }

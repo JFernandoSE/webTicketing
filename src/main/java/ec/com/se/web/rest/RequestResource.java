@@ -30,10 +30,10 @@ import java.util.Optional;
 public class RequestResource {
 
     private final Logger log = LoggerFactory.getLogger(RequestResource.class);
-        
+
     @Inject
     private RequestService requestService;
-    
+
     /**
      * POST  /requests : Create a new request.
      *
@@ -94,8 +94,20 @@ public class RequestResource {
     public ResponseEntity<List<Request>> getAllRequests(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Requests");
-        Page<Request> page = requestService.findAll(pageable); 
+        Page<Request> page = requestService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/requests");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/requests/users",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Request>> getAllRequestsByUsers(@RequestParam(value = "user", required = true) String user ,Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Requests");
+        Page<Request> page = requestService.findAllByUsers(user, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/requests-users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

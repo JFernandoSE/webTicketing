@@ -5,7 +5,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "request")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Request implements Serializable {
+public class Request extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +63,7 @@ public class Request implements Serializable {
     public void setDateRequest(LocalDate dateRequest) {
         this.dateRequest = dateRequest;
     }
+
 
     public Category getCategory() {
         return category;

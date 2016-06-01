@@ -15,11 +15,11 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.change = change;
+        vm.changeCategory= changeCategory;
+        vm.changeSubCategory= changeSubCategory;
         vm.categories = Category.enabled();
-        //vm.subcategories = Subcategory.enabled();
-        vm.actions = Action.enabled();
         vm.request.dateRequest= new Date();
+        vm.subcategories=null;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -38,17 +38,28 @@
             }
         }
 
-        function change () {
-          /*m.subcategories = Subcategory.enabled(
-                 {category:vm.request.category.id}*/
-
+        function changeCategory(){
           vm.subcategories = Subcategory.enabled(
-	           {category:vm.request.category.id},
-	            function (value, responseHeaders) {
-	            },
-	            function (httpResponse) {
-	            }
-	        );
+	                {category : vm.request.category.id},
+	                function (value, responseHeaders) {
+
+	                },
+	                function (httpResponse) {
+
+	                }
+	            );
+        }
+
+        function changeSubCategory(){
+          vm.request.subcategory = Subcategory.get(
+	                {id : vm.request.subcategory.id},
+	                function (value, responseHeaders) {
+
+	                },
+	                function (httpResponse) {
+
+	                }
+	            );
         }
 
         function onSaveSuccess (result) {
@@ -62,6 +73,8 @@
         }
 
         vm.datePickerOpenStatus.dateRequest = false;
+        vm.datePickerOpenStatus.created_date = false;
+        vm.datePickerOpenStatus.last_modified_date = false;
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;

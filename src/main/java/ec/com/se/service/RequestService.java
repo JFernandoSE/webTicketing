@@ -20,13 +20,13 @@ import java.util.List;
 public class RequestService {
 
     private final Logger log = LoggerFactory.getLogger(RequestService.class);
-    
+
     @Inject
     private RequestRepository requestRepository;
-    
+
     /**
      * Save a request.
-     * 
+     *
      * @param request the entity to save
      * @return the persisted entity
      */
@@ -38,14 +38,22 @@ public class RequestService {
 
     /**
      *  Get all the requests.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Request> findAll(Pageable pageable) {
         log.debug("Request to get all Requests");
-        Page<Request> result = requestRepository.findAll(pageable); 
+        Page<Request> result = requestRepository.findAll(pageable);
+        return result;
+    }
+
+    /*  Return Request list users*/
+    @Transactional(readOnly = true)
+    public Page<Request> findAllByUsers(String user, Pageable pageable) {
+        log.debug("Request to get all actives Actions");
+        Page<Request> result = requestRepository.findByCreatedBy(user, pageable);        
         return result;
     }
 
@@ -55,7 +63,7 @@ public class RequestService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Request findOne(Long id) {
         log.debug("Request to get Request : {}", id);
         Request request = requestRepository.findOne(id);
@@ -64,7 +72,7 @@ public class RequestService {
 
     /**
      *  Delete the  request by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

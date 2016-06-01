@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+
+import java.io.Console;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -51,6 +53,10 @@ public class CustomAuditEventRepository implements AuditEventRepository {
     public void add(AuditEvent event) {
         if (!AUTHORIZATION_FAILURE.equals(event.getType()) &&
             !ANONYMOUS_USER.equals(event.getPrincipal().toString())) {
+
+        	System.out.println("Principal " + event.getPrincipal());
+        	System.out.println("Type " + event.getType());
+        	System.out.println("Data " + event.getData());
 
             PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
             persistentAuditEvent.setPrincipal(event.getPrincipal());

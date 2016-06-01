@@ -49,6 +49,16 @@ public class RequestResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE_REQUEST = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_REQUEST = LocalDate.now(ZoneId.systemDefault());
+    private static final String DEFAULT_CREATED_BY = "AAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final String DEFAULT_LAST_MODIFIED_BY = "AAAAA";
+    private static final String UPDATED_LAST_MODIFIED_BY = "BBBBB";
+
+    private static final LocalDate DEFAULT_LAST_MODIFIED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_LAST_MODIFIED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Inject
     private RequestRepository requestRepository;

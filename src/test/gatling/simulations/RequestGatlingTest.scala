@@ -67,7 +67,7 @@ class RequestGatlingTest extends Simulation {
             .exec(http("Create new request")
             .post("/api/requests")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "description":"SAMPLE_TEXT", "dateRequest":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "description":"SAMPLE_TEXT", "dateRequest":"2020-01-01T00:00:00.000Z", "created_by":"SAMPLE_TEXT", "created_date":"2020-01-01T00:00:00.000Z", "last_modified_by":"SAMPLE_TEXT", "last_modified_date":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_request_url"))).exitHereIfFailed
             .pause(10)

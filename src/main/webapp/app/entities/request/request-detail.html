@@ -4,14 +4,11 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="demoApp.request.description">Description</span></dt>
-        <dd>
-            <span>{{vm.request.description}}</span>
-        </dd>
         <dt><span translate="demoApp.request.dateRequest">Date Request</span></dt>
         <dd>
             <span>{{vm.request.dateRequest | date:'mediumDate'}}</span>
         </dd>
+        <dt><span translate="demoApp.request.created_by">Created By</span></dt>
         <dt><span translate="demoApp.request.category">Category</span></dt>
         <dd>
             <a ui-sref="category-detail({id:vm.request.category.id})">{{vm.request.category.name}}</a>
@@ -23,6 +20,10 @@
         <dt><span translate="demoApp.request.action">Action</span></dt>
         <dd>
             <a ui-sref="action-detail({id:vm.request.action.id})">{{vm.request.action.name}}</a>
+        </dd>
+        <dt><span translate="demoApp.request.description">Description</span></dt>
+        <dd>
+            <span>{{vm.request.description}}</span>
         </dd>
     </dl>
 
