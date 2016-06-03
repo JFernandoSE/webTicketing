@@ -52,7 +52,11 @@
 
         <div class="form-group">
             <label translate="demoApp.subcategory.action" for="field_action">Action</label>
+<<<<<<< HEAD
+            <select class="form-control" style='height:100px' id="field_action" multiple name="action" ng-model="vm.subcategory.actions" ng-options="action as action.name for action in vm.actions track by action.id"></select>
+=======
             <select style="height:200px" class="form-control" id="field_action" multiple name="action" ng-model="vm.subcategory.actions" ng-options="action as action.name for action in vm.actions | orderBy: 'name' track by action.id" ></select>
+>>>>>>> 197b9e8ec70ffe790f2ba595ef3abdde4958fdd6
         </div>
         <div class="form-group">
             <label translate="demoApp.subcategory.category" for="field_category">Category</label>
