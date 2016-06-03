@@ -17,7 +17,7 @@
             vm.languages = languages;
         });
 
-        function changeLanguage (languageKey) {
+        function changeLanguage (languageKey) {            
             $translate.use(languageKey);
             tmhDynamicLocale.set(languageKey);
         }

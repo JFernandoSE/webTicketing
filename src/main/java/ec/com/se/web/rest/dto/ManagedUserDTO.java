@@ -1,6 +1,6 @@
 package ec.com.se.web.rest.dto;
 
-import java.time.ZonedDateTime;
+import java.time.*;
 
 import java.util.Set;
 
@@ -18,11 +18,11 @@ public class ManagedUserDTO extends UserDTO {
 
     private Long id;
 
-    private ZonedDateTime createdDate;
+    private LocalDateTime createdDate;
 
     private String lastModifiedBy;
 
-    private ZonedDateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @NotNull
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
@@ -41,7 +41,7 @@ public class ManagedUserDTO extends UserDTO {
     }
 
     public ManagedUserDTO(Long id, String login, String password, String firstName, String lastName,
-                          String email, boolean activated, String langKey, Set<String> authorities , ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate ) {
+                          String email, boolean activated, String langKey, Set<String> authorities , LocalDateTime createdDate, String lastModifiedBy, LocalDateTime lastModifiedDate ) {
         super(login, firstName, lastName, email, activated, langKey, authorities);
         this.id = id;
         this.createdDate = createdDate;
@@ -58,11 +58,11 @@ public class ManagedUserDTO extends UserDTO {
         this.id = id;
     }
 
-    public ZonedDateTime getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(ZonedDateTime createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -74,11 +74,11 @@ public class ManagedUserDTO extends UserDTO {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public ZonedDateTime getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
