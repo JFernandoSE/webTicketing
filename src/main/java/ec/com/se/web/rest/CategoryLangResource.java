@@ -2,6 +2,7 @@ package ec.com.se.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ec.com.se.domain.CategoryLang;
+import ec.com.se.domain.enumeration.Language;
 import ec.com.se.service.CategoryLangService;
 import ec.com.se.web.rest.util.HeaderUtil;
 import ec.com.se.web.rest.util.PaginationUtil;
@@ -30,10 +31,10 @@ import java.util.Optional;
 public class CategoryLangResource {
 
     private final Logger log = LoggerFactory.getLogger(CategoryLangResource.class);
-        
+
     @Inject
     private CategoryLangService categoryLangService;
-    
+
     /**
      * POST  /category-langs : Create a new categoryLang.
      *
@@ -94,8 +95,22 @@ public class CategoryLangResource {
     public ResponseEntity<List<CategoryLang>> getAllCategoryLangs(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of CategoryLangs");
-        Page<CategoryLang> page = categoryLangService.findAll(pageable); 
+        Page<CategoryLang> page = categoryLangService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/category-langs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List Category-Lang By Language */
+    @RequestMapping(value = "/category-langs/language-code",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<CategoryLang>> getCategoryLangByLanguage(@RequestParam(value = "language", required = true) String language, Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Categories");
+        Language languageEnum= Language.valueOf(language.toUpperCase());                
+        Page<CategoryLang> page = categoryLangService.findByLanguage(languageEnum, true, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/category-langs/language-code");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

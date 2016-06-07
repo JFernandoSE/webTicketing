@@ -5,9 +5,9 @@
         .module('demoApp')
         .controller('RequestDialogController', RequestDialogController);
 
-    RequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Request', 'Category', 'Subcategory', 'Action'];
+    RequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Request', 'Category', 'CategoryLang', 'Subcategory', 'Action', '$translate'];
 
-    function RequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Request, Category, Subcategory, Action) {
+    function RequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Request, Category, CategoryLang, Subcategory, Action, $translate) {
         var vm = this;
 
         vm.request = entity;
@@ -17,9 +17,20 @@
         vm.save = save;
         vm.changeCategory= changeCategory;
         vm.changeSubCategory= changeSubCategory;
-        vm.categories = Category.enabled();
+
+        vm.code=$translate.use();
+        vm.categories = CategoryLang.language(
+          {language : $translate.use()},
+            function (value, responseHeaders) {
+                },
+            function (httpResponse) {
+                }
+        );
+
+
         vm.request.dateRequest= new Date();
         vm.subcategories=null;
+
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

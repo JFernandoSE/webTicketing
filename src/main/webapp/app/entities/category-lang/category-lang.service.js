@@ -10,6 +10,11 @@
         var resourceUrl =  'api/category-langs/:id';
 
         return $resource(resourceUrl, {}, {
+            'language': {
+                method:'GET',
+                url: '/api/category-langs/language-code',
+                isArray: true
+            },
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
