@@ -1,7 +1,9 @@
 package ec.com.se.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import ec.com.se.domain.Category;
 import ec.com.se.domain.SubcategoryLang;
+import ec.com.se.domain.enumeration.Language;
 import ec.com.se.service.SubcategoryLangService;
 import ec.com.se.web.rest.util.HeaderUtil;
 import ec.com.se.web.rest.util.PaginationUtil;
@@ -30,10 +32,10 @@ import java.util.Optional;
 public class SubcategoryLangResource {
 
     private final Logger log = LoggerFactory.getLogger(SubcategoryLangResource.class);
-        
+
     @Inject
     private SubcategoryLangService subcategoryLangService;
-    
+
     /**
      * POST  /subcategory-langs : Create a new subcategoryLang.
      *
@@ -94,8 +96,24 @@ public class SubcategoryLangResource {
     public ResponseEntity<List<SubcategoryLang>> getAllSubcategoryLangs(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SubcategoryLangs");
-        Page<SubcategoryLang> page = subcategoryLangService.findAll(pageable); 
+        Page<SubcategoryLang> page = subcategoryLangService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subcategory-langs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List Sub-Category-Lang By Language */
+    @RequestMapping(value = "/subcategory-langs/language-code",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<SubcategoryLang>> getSubCategoryLangByLanguage(@RequestParam(value = "language", required = true) String language,
+    @RequestParam(value = "category", required = true) String category, Pageable pageable)
+        throws URISyntaxException {
+        Language languageEnum= Language.valueOf(language.toUpperCase());
+        Category categoryObj= new Category();
+        categoryObj.setId(Long.valueOf(category));
+        Page<SubcategoryLang> page = subcategoryLangService.findByLanguage(languageEnum, categoryObj, true, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subcategory-langs/language-code");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

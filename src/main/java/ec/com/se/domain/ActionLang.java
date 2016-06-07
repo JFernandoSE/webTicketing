@@ -11,6 +11,7 @@ import java.util.Objects;
 import ec.com.se.domain.enumeration.Language;
 
 /**
+ * 
  * A ActionLang.
  */
 @Entity

@@ -5,11 +5,10 @@
         .module('demoApp')
         .controller('RequestDialogController', RequestDialogController);
 
-    RequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Request', 'Category', 'CategoryLang', 'Subcategory', 'Action', '$translate'];
+    RequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Request', 'Category', 'CategoryLang', 'Subcategory', 'SubcategoryLang', 'Action', 'ActionLang', '$translate'];
 
-    function RequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Request, Category, CategoryLang, Subcategory, Action, $translate) {
+    function RequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Request, Category, CategoryLang, Subcategory, SubcategoryLang, Action, ActionLang,  $translate) {
         var vm = this;
-
         vm.request = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
@@ -42,6 +41,9 @@
 
         function save () {
             vm.isSaving = true;
+            vm.request.category=vm.category.category;
+            vm.request.subcategory=vm.subcategory.subcategory;
+            vm.request.accion=vm.accion.accion;
             if (vm.request.id !== null) {
                 Request.update(vm.request, onSaveSuccess, onSaveError);
             } else {
@@ -50,10 +52,13 @@
         }
 
         function changeCategory(){
-          vm.subcategories = Subcategory.enabled(
-	                {category : vm.request.category.id},
+          vm.subcategories = SubcategoryLang.language(
+                  { language : $translate.use(),
+                    category : vm.category.category.id
+                  },
 	                function (value, responseHeaders) {
-
+                    vm.actions=null;
+                    vm.action=null;
 	                },
 	                function (httpResponse) {
 
@@ -62,15 +67,17 @@
         }
 
         function changeSubCategory(){
-          vm.request.subcategory = Subcategory.get(
-	                {id : vm.request.subcategory.id},
-	                function (value, responseHeaders) {
-
-	                },
-	                function (httpResponse) {
-
-	                }
-	            );
+          if(vm.subcategory!=null){
+            vm.actions = ActionLang.language(
+  	                {  language : $translate.use(),
+                       subcategory : vm.subcategory.subcategory.id
+                    },
+  	                function (value, responseHeaders) {
+  	                },
+  	                function (httpResponse) {
+  	                }
+  	            );
+          }
         }
 
         function onSaveSuccess (result) {

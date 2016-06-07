@@ -2,6 +2,8 @@ package ec.com.se.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ec.com.se.domain.ActionLang;
+import ec.com.se.domain.Subcategory;
+import ec.com.se.domain.enumeration.Language;
 import ec.com.se.service.ActionLangService;
 import ec.com.se.web.rest.util.HeaderUtil;
 import ec.com.se.web.rest.util.PaginationUtil;
@@ -19,6 +21,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +33,10 @@ import java.util.Optional;
 public class ActionLangResource {
 
     private final Logger log = LoggerFactory.getLogger(ActionLangResource.class);
-        
+
     @Inject
     private ActionLangService actionLangService;
-    
+
     /**
      * POST  /action-langs : Create a new actionLang.
      *
@@ -94,8 +97,26 @@ public class ActionLangResource {
     public ResponseEntity<List<ActionLang>> getAllActionLangs(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of ActionLangs");
-        Page<ActionLang> page = actionLangService.findAll(pageable); 
+        Page<ActionLang> page = actionLangService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/action-langs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /** Get List Action-Lang By Language */
+    @RequestMapping(value = "/action-langs/language-code",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<ActionLang>> getActionLangByLanguage(@RequestParam(value = "language", required = true) String language,
+    @RequestParam(value = "subcategory", required = true) String subcategory, Pageable pageable)
+        throws URISyntaxException {
+        Language languageEnum= Language.valueOf(language.toUpperCase());
+        Subcategory subcategoryObj= new Subcategory();
+        subcategoryObj.setId(Long.valueOf(subcategory));
+        List<Subcategory> subcategories= new ArrayList<>();
+        subcategories.add(subcategoryObj);
+        Page<ActionLang> page = actionLangService.findByLanguage(languageEnum, true ,subcategories, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/action-langs/language-code");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

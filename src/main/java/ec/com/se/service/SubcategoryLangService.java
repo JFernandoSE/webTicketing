@@ -1,6 +1,8 @@
 package ec.com.se.service;
 
 import ec.com.se.domain.SubcategoryLang;
+import ec.com.se.domain.Category;
+import ec.com.se.domain.enumeration.Language;
 import ec.com.se.repository.SubcategoryLangRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +22,13 @@ import java.util.List;
 public class SubcategoryLangService {
 
     private final Logger log = LoggerFactory.getLogger(SubcategoryLangService.class);
-    
+
     @Inject
     private SubcategoryLangRepository subcategoryLangRepository;
-    
+
     /**
      * Save a subcategoryLang.
-     * 
+     *
      * @param subcategoryLang the entity to save
      * @return the persisted entity
      */
@@ -38,14 +40,22 @@ public class SubcategoryLangService {
 
     /**
      *  Get all the subcategoryLangs.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<SubcategoryLang> findAll(Pageable pageable) {
         log.debug("Request to get all SubcategoryLangs");
-        Page<SubcategoryLang> result = subcategoryLangRepository.findAll(pageable); 
+        Page<SubcategoryLang> result = subcategoryLangRepository.findAll(pageable);
+        return result;
+    }
+
+    /*  Return Sub-CategoryLang Enabled and Language Code */
+    @Transactional(readOnly = true)
+    public Page<SubcategoryLang> findByLanguage(Language language, Category category, Boolean enabled, Pageable pageable) {
+        log.debug("Request to get all enabled Category");
+        Page<SubcategoryLang> result = subcategoryLangRepository.findByLanguageCodeAndSubcategoryCategoryAndSubcategoryEnabled(language, category, enabled, pageable);
         return result;
     }
 
@@ -55,7 +65,7 @@ public class SubcategoryLangService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SubcategoryLang findOne(Long id) {
         log.debug("Request to get SubcategoryLang : {}", id);
         SubcategoryLang subcategoryLang = subcategoryLangRepository.findOne(id);
@@ -64,7 +74,7 @@ public class SubcategoryLangService {
 
     /**
      *  Delete the  subcategoryLang by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {
