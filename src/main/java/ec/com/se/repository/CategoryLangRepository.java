@@ -1,11 +1,13 @@
 package ec.com.se.repository;
 
 import ec.com.se.domain.CategoryLang;
-import ec.com.se.domain.enumeration.Language;
 
-import org.springframework.data.jpa.repository.*;
+import ec.com.se.domain.enumeration.Language;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.jpa.repository.*;
+
 import java.util.List;
 
 /**

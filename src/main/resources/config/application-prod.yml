@@ -18,10 +18,10 @@ spring:
         livereload:
             enabled: false
     datasource:
-        url: jdbc:postgresql://192.168.1.97:5432/demo
+        url: jdbc:postgresql://localhost:5432/demo
         name:
-        username: postgres
-        password: fer1307
+        username: demo
+        password:
     jpa:
         database-platform: ec.com.se.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

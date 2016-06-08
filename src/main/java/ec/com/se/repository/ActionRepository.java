@@ -1,8 +1,7 @@
 package ec.com.se.repository;
 
 import ec.com.se.domain.Action;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
+
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -12,6 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ActionRepository extends JpaRepository<Action,Long> {
-  Page<Action> findByEnabled(Boolean enabled, Pageable pag);
-  
+
 }

@@ -12,8 +12,7 @@
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.request.id" readonly />
-        </div>
-        Lenguaje: {{vm.code}}
+        </div>        
         <div class="form-group">
             <label translate="demoApp.request.category" for="field_category">Category</label>
             <select class="form-control" id="field_category" name="category" ng-model="vm.category" ng-change="vm.changeCategory()" ng-options="category as category.value for category in vm.categories track by category.id">

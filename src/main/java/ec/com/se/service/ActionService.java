@@ -5,10 +5,10 @@ import ec.com.se.repository.ActionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+
 import javax.inject.Inject;
 import java.util.List;
 
@@ -46,15 +46,6 @@ public class ActionService {
     public Page<Action> findAll(Pageable pageable) {
         log.debug("Request to get all Actions");
         Page<Action> result = actionRepository.findAll(pageable);
-        return result;
-    }
-
-    /*  Return Action list enabled*/
-    @Transactional(readOnly = true)
-    public Page<Action> findAllEnabled(Boolean enabled, Pageable pageable) {
-        log.debug("Request to get all actives Actions");
-        Page<Action> result = actionRepository.findByEnabled(enabled, pageable);
-        //return new PageImpl<Action>(result,pageable, result.size());
         return result;
     }
 

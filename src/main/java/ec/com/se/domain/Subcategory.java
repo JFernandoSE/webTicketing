@@ -55,7 +55,6 @@ public class Subcategory implements Serializable {
     private Set<Request> requests = new HashSet<>();
 
     @ManyToOne
-    @NotNull
     private Category category;
 
     public Long getId() {

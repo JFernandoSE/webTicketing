@@ -99,19 +99,7 @@ public class ActionResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /** Get List Actions Enabled */
-    @RequestMapping(value = "/actions/enabled",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<List<Action>> getAllActionsEnabled(Pageable pageable)
-        throws URISyntaxException {
-        log.debug("REST request to get a page of Actions");
-        Page<Action> page = actionService.findAllEnabled(true, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/actions-enabled");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
+    
     /**
      * GET  /actions/:id : get the "id" action.
      *

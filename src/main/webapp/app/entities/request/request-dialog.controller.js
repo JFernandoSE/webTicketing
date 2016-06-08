@@ -43,7 +43,7 @@
             vm.isSaving = true;
             vm.request.category=vm.category.category;
             vm.request.subcategory=vm.subcategory.subcategory;
-            vm.request.accion=vm.accion.accion;
+            vm.request.action=vm.action.action;
             if (vm.request.id !== null) {
                 Request.update(vm.request, onSaveSuccess, onSaveError);
             } else {

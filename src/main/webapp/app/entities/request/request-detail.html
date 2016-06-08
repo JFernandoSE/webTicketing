@@ -6,9 +6,8 @@
     <dl class="dl-horizontal jh-entity-details">
         <dt><span translate="demoApp.request.dateRequest">Date Request</span></dt>
         <dd>
-            <span>{{vm.request.dateRequest | date:'medium'}}</span>
+            <span>{{vm.request.createdDate | date:'dd/MM/yy HH:mm'}}</span>
         </dd>
-        <dt><span translate="demoApp.request.created_by">Created By</span></dt>
         <dt><span translate="demoApp.request.category">Category</span></dt>
         <dd>
             <a ui-sref="category-detail({id:vm.request.category.id})">{{vm.request.category.name}}</a>

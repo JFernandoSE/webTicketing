@@ -25,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -44,6 +47,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class RequestResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
@@ -52,13 +57,15 @@ public class RequestResourceIntTest {
     private static final String DEFAULT_CREATED_BY = "AAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBB";
 
-    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_CREATED_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATED_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATED_DATE);
     private static final String DEFAULT_LAST_MODIFIED_BY = "AAAAA";
     private static final String UPDATED_LAST_MODIFIED_BY = "BBBBB";
 
-    private static final LocalDate DEFAULT_LAST_MODIFIED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_LAST_MODIFIED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_LAST_MODIFIED_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_LAST_MODIFIED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_LAST_MODIFIED_DATE_STR = dateTimeFormatter.format(DEFAULT_LAST_MODIFIED_DATE);
 
     @Inject
     private RequestRepository requestRepository;
@@ -91,6 +98,10 @@ public class RequestResourceIntTest {
         request = new Request();
         request.setDescription(DEFAULT_DESCRIPTION);
         request.setDateRequest(DEFAULT_DATE_REQUEST);
+        request.setCreatedBy(DEFAULT_CREATED_BY);
+        request.setCreatedDate(DEFAULT_CREATED_DATE);
+        request.setLastModifiedBy(DEFAULT_LAST_MODIFIED_BY);
+        request.setLastModifiedDate(DEFAULT_LAST_MODIFIED_DATE);
     }
 
     @Test
@@ -111,6 +122,10 @@ public class RequestResourceIntTest {
         Request testRequest = requests.get(requests.size() - 1);
         assertThat(testRequest.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testRequest.getDateRequest()).isEqualTo(DEFAULT_DATE_REQUEST);
+        assertThat(testRequest.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testRequest.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testRequest.getLastModifiedBy()).isEqualTo(DEFAULT_LAST_MODIFIED_BY);
+        assertThat(testRequest.getLastModifiedDate()).isEqualTo(DEFAULT_LAST_MODIFIED_DATE);
     }
 
     @Test
@@ -161,7 +176,11 @@ public class RequestResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId().intValue())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].dateRequest").value(hasItem(DEFAULT_DATE_REQUEST.toString())));
+                .andExpect(jsonPath("$.[*].dateRequest").value(hasItem(DEFAULT_DATE_REQUEST.toString())))
+                .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
+                .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE_STR)))
+                .andExpect(jsonPath("$.[*].lastModifiedBy").value(hasItem(DEFAULT_LAST_MODIFIED_BY.toString())))
+                .andExpect(jsonPath("$.[*].lastModifiedDate").value(hasItem(DEFAULT_LAST_MODIFIED_DATE_STR)));
     }
 
     @Test
@@ -176,7 +195,11 @@ public class RequestResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(request.getId().intValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.dateRequest").value(DEFAULT_DATE_REQUEST.toString()));
+            .andExpect(jsonPath("$.dateRequest").value(DEFAULT_DATE_REQUEST.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
+            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE_STR))
+            .andExpect(jsonPath("$.lastModifiedBy").value(DEFAULT_LAST_MODIFIED_BY.toString()))
+            .andExpect(jsonPath("$.lastModifiedDate").value(DEFAULT_LAST_MODIFIED_DATE_STR));
     }
 
     @Test
@@ -200,6 +223,10 @@ public class RequestResourceIntTest {
         updatedRequest.setId(request.getId());
         updatedRequest.setDescription(UPDATED_DESCRIPTION);
         updatedRequest.setDateRequest(UPDATED_DATE_REQUEST);
+        updatedRequest.setCreatedBy(UPDATED_CREATED_BY);
+        updatedRequest.setCreatedDate(UPDATED_CREATED_DATE);
+        updatedRequest.setLastModifiedBy(UPDATED_LAST_MODIFIED_BY);
+        updatedRequest.setLastModifiedDate(UPDATED_LAST_MODIFIED_DATE);
 
         restRequestMockMvc.perform(put("/api/requests")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,6 +239,10 @@ public class RequestResourceIntTest {
         Request testRequest = requests.get(requests.size() - 1);
         assertThat(testRequest.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testRequest.getDateRequest()).isEqualTo(UPDATED_DATE_REQUEST);
+        assertThat(testRequest.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testRequest.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testRequest.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
+        assertThat(testRequest.getLastModifiedDate()).isEqualTo(UPDATED_LAST_MODIFIED_DATE);
     }
 
     @Test

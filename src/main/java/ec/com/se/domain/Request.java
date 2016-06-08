@@ -5,7 +5,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -64,7 +66,6 @@ public class Request extends AbstractAuditingEntity {
         this.dateRequest = dateRequest;
     }
 
-
     public Category getCategory() {
         return category;
     }
@@ -114,7 +115,7 @@ public class Request extends AbstractAuditingEntity {
         return "Request{" +
             "id=" + id +
             ", description='" + description + "'" +
-            ", dateRequest='" + dateRequest + "'" +
+            ", dateRequest='" + dateRequest + "'" +          
             '}';
     }
 }

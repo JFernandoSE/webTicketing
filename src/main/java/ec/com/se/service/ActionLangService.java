@@ -1,7 +1,7 @@
 package ec.com.se.service;
 
 import ec.com.se.domain.ActionLang;
-import ec.com.se.domain.Category;
+import ec.com.se.domain.CategoryLang;
 import ec.com.se.domain.Subcategory;
 import ec.com.se.domain.enumeration.Language;
 import ec.com.se.repository.ActionLangRepository;
@@ -51,8 +51,7 @@ public class ActionLangService {
         Page<ActionLang> result = actionLangRepository.findAll(pageable);
         return result;
     }
-
-    /*  Return ActionLang Enabled and Language Code */
+    
     @Transactional(readOnly = true)
     public Page<ActionLang> findByLanguage(Language language, Boolean enabled, List<Subcategory> subcategories, Pageable pageable) {
         log.debug("Request to get all enabled Category");
@@ -66,7 +65,7 @@ public class ActionLangService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public ActionLang findOne(Long id) {
         log.debug("Request to get ActionLang : {}", id);
         ActionLang actionLang = actionLangRepository.findOne(id);

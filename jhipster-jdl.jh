@@ -1,0 +1,103 @@
+
+
+/*
+ * Enums
+ */
+
+enum Language {
+	EN, ES
+}
+
+
+/*
+ * Entities
+ */
+
+entity CategoryLang {
+    languageCode Language required,
+	value String required
+}
+
+entity Category {
+	name String required,
+	externalId String required,
+    enabled Boolean required
+}
+
+entity SubcategoryLang {
+    languageCode Language required,
+	value String required
+}
+
+entity Subcategory {
+	name String required,
+	externalId String required,
+    enabled Boolean required
+}
+
+entity ActionLang {
+    languageCode Language required,
+	value String required
+}
+
+entity Action {
+	name String required,
+	externalId String required,
+    enabled Boolean required
+}
+
+entity Request{
+	description String required maxlength(50),
+    dateRequest LocalDate required,
+    createdBy String,
+    createdDate ZonedDateTime,
+    lastModifiedBy String, 
+    lastModifiedDate ZonedDateTime
+}
+
+/*
+ * Relations
+ */
+
+relationship OneToMany {
+	Category{categoryLang} to CategoryLang{category(name)}
+}
+
+relationship OneToMany {
+	Subcategory{subcategoryLang} to SubcategoryLang{subcategory(name)}
+}
+
+relationship OneToMany {
+	Action{actionLang} to ActionLang{action(name)}
+}
+
+relationship OneToMany {
+	Category{subcategory} to Subcategory{category(name)}
+}
+
+relationship ManyToMany {
+	Subcategory{action(name)} to Action{subcategory}
+}
+
+relationship OneToMany {
+	Category{request} to Request{category(name)} 
+}
+
+relationship OneToMany {
+	Subcategory{request} to Request{subcategory(name)} 
+}
+
+relationship OneToMany {
+	Action{request} to Request{action(name)} 
+}
+
+/*
+ * Options
+ */
+/*
+* paginate all with pagination
+*/
+paginate all with pager
+
+service all with serviceClass
+
